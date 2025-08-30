@@ -1,24 +1,24 @@
-# Use official Java 21 image
+# Use Java 21 JDK
 FROM eclipse-temurin:21-jdk-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml first
+# Copy Maven wrapper and pom.xml first (leverage Docker cache)
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
-# Copy the rest of the project
+# Copy source code
 COPY src ./src
 
 # Make Maven wrapper executable
 RUN chmod +x mvnw
 
-# Build the Spring Boot application
+# Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Expose the port
+# Expose port
 EXPOSE 8080
 
 # Run the JAR
