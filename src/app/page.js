@@ -43,7 +43,7 @@ export default function Page() {
 
   async function fetchSkills() {
     try {
-      const res = await fetch('http://localhost:8080/api/skills')
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/skills`)
       const data = await res.json()
       setSkills(data.content || data)
     } catch (err) {
@@ -56,12 +56,12 @@ export default function Page() {
       const token = localStorage.getItem('token')
       if (!token) return
 
-      const resMade = await fetch('http://localhost:8080/api/requests/made', {
+      const resMade = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/requests/made`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       const madeRequests = await resMade.json()
 
-      const resReceived = await fetch('http://localhost:8080/api/requests/received', {
+      const resReceived = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/requests/received`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       const receivedRequests = await resReceived.json()
@@ -86,7 +86,7 @@ export default function Page() {
     }
 
     try {
-      const res = await fetch('http://localhost:8080/api/requests', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ export default function Page() {
     setLoading(true)
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch('http://localhost:8080/api/skills', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/skills`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ export default function Page() {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/api/skills/search?keyword=${encodeURIComponent(search)}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/skills/search?keyword=${encodeURIComponent(search)}`
       )
       const data = await res.json()
       setSkills(data)

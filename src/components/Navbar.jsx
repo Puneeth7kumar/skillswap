@@ -16,7 +16,7 @@ export default function Navbar({ user, onLogout, darkMode, toggleDarkMode }) {
     useEffect(() => {
         if (!user) return
         const token = localStorage.getItem('token')
-        fetch('http://localhost:8080/api/notifications/notifications', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications/notifications`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(res => res.json())
@@ -25,7 +25,7 @@ export default function Navbar({ user, onLogout, darkMode, toggleDarkMode }) {
     }, [user])
     const clearAll = () => {
         const token = localStorage.getItem('token');
-        fetch('http://localhost:8080/api/notifications/clear', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications/clear`, {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${token}` },
         }).then(() => setNotifications([]))

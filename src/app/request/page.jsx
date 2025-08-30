@@ -30,13 +30,13 @@ export default function MyRequestsPage() {
         const token = localStorage.getItem("token")
         if (!token) return
 
-        fetch("http://localhost:8080/api/requests/made", {
+        fetch("https://skillswap-2-z66g.onrender.com/api/requests/made", {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => res.json())
             .then(setMadeRequests)
 
-        fetch("http://localhost:8080/api/requests/received", {
+        fetch("https://skillswap-2-z66g.onrender.com/api/requests/received", {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => res.json())
@@ -52,7 +52,7 @@ export default function MyRequestsPage() {
     const updateStatus = async (id, status) => {
         const token = localStorage.getItem("token")
         try {
-            const res = await fetch(`http://localhost:8080/api/requests/${id}/status`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/requests/${id}/status`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
